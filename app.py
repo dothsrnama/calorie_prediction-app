@@ -2,7 +2,7 @@
 import streamlit as st
 import joblib
 import pandas as pd
-
+import requests
 
 # page tab title and modificaitons.
 st.set_page_config(
@@ -36,6 +36,12 @@ body_temp = st.number_input("Body Temp (Celcius)", min_value=35.0, max_value=42.
 
 # Defining API target and submint button.
 API_URL = "http://127.0.0.1:8000/predict"
+
+try:
+	response = requests.post(FASTAPI_URL, json=payload, timeout=10)
+	data = response.json()
+except requests.exceptions.RequestException as e:
+	st.error(f"Could not connect to Fast API Server. Details:{e}")
 
 if st.button("Predict Calories Burned", type="primary"):
 	payload = {
