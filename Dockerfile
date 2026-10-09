@@ -24,7 +24,7 @@ COPY . .
 RUN chmod +x start.sh
 
 # Expose ports for FastAPI (8000) and Streamlit (8501)
-EXPOSE 8000 8501
+EXPOSE 8501
 
 # Run startup script as entrypoint
 CMD ["./start.sh"]
