@@ -1,8 +1,9 @@
 # importing libraries
 import streamlit as st
+import requests
 import joblib
 import pandas as pd
-import requests
+
 
 # page tab title and modificaitons.
 st.set_page_config(
@@ -38,10 +39,6 @@ body_temp = st.number_input("Body Temp (Celcius)", min_value=35.0, max_value=42.
 API_URL = "http://127.0.0.1:8000/predict"
 
 try:
-	response = requests.post(FASTAPI_URL, json=payload, timeout=10)
-	data = response.json()
-except requests.exceptions.RequestException as e:
-	st.error(f"Could not connect to Fast API Server. Details:{e}")
 
 if st.button("Predict Calories Burned", type="primary"):
 	payload = {
@@ -55,7 +52,7 @@ if st.button("Predict Calories Burned", type="primary"):
 	# creating a loading spinner animation
 	with st.spinner("Calculating.."):
 		try:
-			response = requests.post(API_URL, json=payload)
+			response = requests.post(API_URL, json=payload, timeout=10)
 			if response.status_code == 200:
 				result = response.json()
 				calories = result.get("predicted_calories")
