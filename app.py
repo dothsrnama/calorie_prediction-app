@@ -14,13 +14,6 @@ st.set_page_config(
 # writing a title and short description on page.
 st.title("🔥 Calorie Burn Predictor")
 st.write("Input your activity metrics below and estimate calories burned using our **ML model**")
-# LOADING MODEL AND SCALER DIRECTLY
-@st.cache_resource
-def load_artifacts():
-	model=joblib.load("model_artifacts/calorie_model.pkl")
-	scaler = joblib.load("model_artifacts/scaler.pkl")
-	return model, scaler
-model, scaler = load_artifacts()
 # sidebar controls for user demograpgic inputs
 st.sidebar.header("User Info")
 
@@ -37,8 +30,6 @@ body_temp = st.number_input("Body Temp (Celcius)", min_value=35.0, max_value=42.
 
 # Defining API target and submint button.
 API_URL = "http://127.0.0.1:8000/predict"
-
-try:
 
 if st.button("Predict Calories Burned", type="primary"):
 	payload = {
