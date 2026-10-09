@@ -14,7 +14,7 @@ st.set_page_config(
 st.title("🔥 Calorie Burn Predictor")
 st.write("Input your activity metrics below and estimate calories burned using our **ML model**")
 # LOADING MODEL AND SCALER DIRECTLY
-@st.cache_resources
+@st.cache_resource
 def load_artifacts():
 	model=joblib.load("model_artifacts/calorie_model.pkl")
 	scaler = joblib.load("model_artifacts/scaler.pkl")
